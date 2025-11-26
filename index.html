@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Multi-Machine Type Acoustic Classification on DCASE23 Task 2</title>
+  <title>Gaussian-based Localized Anomaly Detection and Multi-class Classification of Industrial Machines using AudioResNet</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -10,7 +10,7 @@
   <div class="page">
 
     <header>
-      <h1>Multi-Machine Type Acoustic Classification on DCASE23 Task 2</h1>
+      <h1>Gaussian-based Localized Anomaly Detection and Multi-class Classification of Industrial Machines using AudioResNet</h1>
 
       <div class="authors">
         <p>
@@ -25,7 +25,7 @@
         <a href="#abstract">Abstract</a>
         <a href="#dataset-example">Dataset Example</a>
         <a href="#dataset-summary">Dataset Summary</a>
-        <a href="#masks">Ground Truth Masks</a>
+        <a href="#masks">Evaluation of AST embeddings</a>
         <a href="#materials">Materials</a>
       </nav>
     </header>
@@ -37,24 +37,20 @@
         <h2>Abstract</h2>
         <p>
           Understanding machine sound patterns is crucial for industrial condition monitoring, 
-          predictive maintenance, and safety. The DCASE 2023 Task 2 development data 
-          provide 10-second mono recordings from seven machine types under normal and 
-          anomalous operating conditions, together with metadata and precomputed Audio 
-          Spectrogram Transformer (AST) embeddings. In this work, we construct a cleaned, 
-          enriched version of this dataset by attaching audio waveforms to the metadata, 
-          generating Mel spectrograms, and preserving balanced splits over machine type, 
-          domain, and label. Using the AST embeddings, we first perform dimensionality 
-          reduction and clustering analyses to study how well different machine types are 
-          separated in the embedding space, and then train several classical classifiers 
-          (Naive Bayes, Decision Tree, Random Forest, SVM, and KNN) for supervised 
-          machine-type classification. We further design and train AudioResNet, a 
-          ResNet-inspired convolutional neural network that operates on Mel spectrograms 
-          for machine-type classification, and use its penultimate-layer features as 
-          custom embeddings. These AudioResNet embeddings are evaluated with the same 
-          family of classifiers and compared directly to AST embeddings in terms of 
-          classification performance and representation quality. Finally, we construct
-          a combined dataset with explicit anomaly indicators to support model selection 
-          for anomalous vs non-anomalous classification using the learned embedding spaces.
+          predictive maintenance, and safety. We design and train a custom AudioResNet, a 
+          ResNet-inspired convolutional neural network that operates on Mel spectrograms for 
+          machine-type classification and uses its intermediate features as custom embeddings. 
+          These AudioResNet embeddings are evaluated with the classical machine learning classifiers 
+          and compared directly with the available pre-trained AST embeddings in terms of classification 
+          performance and representation quality. In comparison to the AST embeddings, the custom CNN 
+          produced substantially lower-dimensional embeddings, with just 6 features being able to capture 
+          90% of the variance. The AudioResNet is employed as a lightweight backbone for patch distribution 
+          modelling (PaDiM), where a self-supervised Gaussian-metric-based learning algorithm is utilised 
+          for anomaly detection and localisation in images. The Custom CNN-PaDIM ensemble model improves 
+          anomaly-AUROC performance by +4.4 percentage points on average across seven machine classes in 
+          comparison to the default ResNet18 PaDiM backbone, exemplifying the domain-specific optimisation
+          in machine sound anomaly detection, which is paramount in areas of predictive maintenance of
+          machinery and equipment, guiding various performance optimisation benefits.
         </p>
       </section>
 
@@ -82,21 +78,17 @@
       </section>
       <!-- MASKS -->
       <section id="masks">
-        <h2>Manually Annotated Ground Truth Masks</h2>
+        <h2>Evaluation of AST embeddings</h2>
 
         <div class="figure">
-          <img src="img/masks_example.png" alt="Example ground truth masks for root segmentation">
+          <img src="img/masks_example.png" alt="Evaluation of AST embeddings">
           <p class="caption">
-            Example pairs of RGB images and corresponding binary masks used as ground truth
-            for semantic segmentation.
+            This table compares clustering models using Silhouette Score (cluster separation/compactness) 
+            and Adjusted Rand Score (agreement with ground-truth labels). Overall, Agglomerative Clustering 
+            and Bisecting K-Means perform best, with higher values on both metrics, while HDBSCAN shows the 
+            weakest clustering quality among the methods.
           </p>
         </div>
-
-        <p>
-          Pixel-level annotations label each pixel as belonging to the root system or the
-          surrounding soil. These masks allow quantitative evaluation of segmentation
-          algorithms using metrics such as IoU, Dice score, and pixel accuracy.
-        </p>
       </section>
 
       <!-- MATERIALS -->
