@@ -76,12 +76,12 @@
             <img src="dataset_summary_anomaly.png" alt="Dataset summary visualization2", style="width:33%; height:auto;">
         </div>
       </section>
-      <!-- MASKS -->
+      <!-- Clustering metrics of AST embeddings-->
       <section id="masks">
-        <h2>Evaluation of AST embeddings</h2>
+        <h2>Clustering metrics of AST embeddings  </h2>
 
         <div class="figure">
-          <img src="img/masks_example.png" alt="Evaluation of AST embeddings">
+          <img src="Evaluation_AST_embeddings.png" alt="Evaluation of AST embeddings">
           <p class="caption">
             This table compares clustering models using Silhouette Score (cluster separation/compactness) 
             and Adjusted Rand Score (agreement with ground-truth labels). Overall, Agglomerative Clustering 
@@ -93,22 +93,32 @@
 
       <!-- MATERIALS -->
       <section id="materials">
-        <h2>Materials</h2>
+        <h2>Multi-Class Performance</h2>
 
         <div class="figure-grid">
           <figure>
-            <img src="img/materials_1.png" alt="Example field or experimental setup image">
-            <figcaption>Field or greenhouse setup used for data collection.</figcaption>
+            <img src="AudioResNet_1.png" alt="AudioResNet Model Evaluation">
+            <img src="AudioResNet_2.png" alt="AudioResNet Model Evaluation">
+            <figcaption>The proposed AudioRestNet was able to achieve an accuracy of 99.1% on the DCASE 
+              2023 Task 2 test set (7 vehicle sound classes, balanced) and a macro F1-score of 0.991 on 
+              the test set, demonstrating excellent discriminative capabilities on the mel-spectrogram-
+              transformed images of the audio samples using a lightweight architecture.</figcaption>
           </figure>
 
           <figure>
-            <img src="img/materials_2.png" alt="Example image of sensors or tubes">
-            <figcaption>Installed minirhizotron tubes and related hardware.</figcaption>
+            <img src="Clustering_Performance_Comparison_Across_Models.png" alt="Clustering Performance Comparison Across Models">
+            <figcaption>The custom embeddings generated showcased higher inter-cluster separability and 
+              intra-cluster compactness when the same clustering techniques were employed on them. The 
+              high Silhouette Scores and Adjusted Rand Indices validate this claim.</figcaption>
           </figure>
 
           <figure>
-            <img src="img/materials_3.png" alt="Example image of plant material or roots">
-            <figcaption>Plant material and root structures imaged in the study.</figcaption>
+            <img src="Linear_probe_classification_accuracy.png" alt=" Linear probe classification accuracy using AudioResNet vs. pretrained AST embeddings">
+            <figcaption>Differences are more dramatic in simpler models like Decision Trees and Naive 
+              Bayes Classifiers, exemplifying the significantly cleaner, more Gaussian-like, and higher-margin
+              class clusters in the embedding space. AST embeddings retain a lot of residual nonlinear overlaps,
+              requiring stronger and complex classifiers like SVM to reach higher performances, while the 
+              simplest Naive Bayes classifier outperforms the same with AudioResNet embeddings.</figcaption>
           </figure>
         </div>
 
@@ -118,16 +128,44 @@
           dataset can be correctly interpreted and used as a benchmark for future work.
         </p>
       </section>
-      
+
+      <!-- MATERIALS -->
+      <section id="materials2">
+        <h2>Anomaly Detection and Classification</h2>
+
+        <div class="figure-grid">
+          <figure>
+            <img src="AUROC.png" alt=" Per-class AUROC and F1 comparison between AudioResNet and ResNet-18">
+            <figcaption>The custom backbone improves average image-level AUROC from 0.603 to 0.647 (+4.4 pp) 
+              and average image-level F1-score from 0.498 to 0.531 (+3.3 pp), with significant gains of 9–12 
+              percentage points on the most discriminative machine types (fan, bearing, gearbox). </figcaption>
+          </figure>
+
+          <figure>
+            <img src="PaDiM heatmap.png" alt="PaDiM heatmap">
+            <figcaption>PaDiM heatmap for the anomalous valve broadband noise (mechanical fault) flagged in red 
+              (e.g., leakage, loose part, or vibration). The warmer regions in the heatmap indicate the anomalous 
+              components.</figcaption>
+          </figure>
+        </div>
+
+        <p>
+          Additional materials may include imaging hardware specifications, tube installation
+          guidelines, and data collection protocols. These details help ensure that the
+          dataset can be correctly interpreted and used as a benchmark for future work.
+        </p>
+      </section>      
         <h3>Related Links</h3>
         <ul class="link-list">
           <li><a href="https://huggingface.co/datasets/renumics/dcase23-task2-enriched" target="_blank" rel="noopener">Dataset (repository)</a></li>
+          <li><a href="https://colab.research.google.com/drive/1DN1TGEgdb-NzEwbHqyMGgazDeL4D4jSU?usp=sharing" target="_blank" rel="noopener">Code and impleman</a></li>
         </ul>
       </section>
     </main>
   </div>
 </body>
 </html>
+
 
 
 
